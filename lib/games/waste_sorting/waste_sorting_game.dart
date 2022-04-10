@@ -1,5 +1,6 @@
 import 'package:flame/game.dart';
 
+import 'package:add_game/games/waste_sorting/components/bin.dart';
 import 'package:add_game/games/waste_sorting/components/item.dart';
 import 'package:add_game/games/waste_sorting/models/waste_type.dart';
 import 'package:add_game/games/waste_sorting/components/background.dart';
@@ -11,6 +12,7 @@ class WasteSortingGame extends FlameGame {
 
     addBackground();
     addItems();
+    addBins();
   }
 
   void addBackground() {
@@ -35,5 +37,27 @@ class WasteSortingGame extends FlameGame {
       initialPos: item2Pos,
     );
     add(item2);
+  }
+
+  void addBins() {
+    final y = size.y - 200;
+
+    final bin1Pos = Vector2(100, y);
+    final bin1 = Bin(
+      imagePath: 'bin/trash-can.png',
+      type: WasteType.organic,
+      initialPos: bin1Pos,
+    );
+
+    add(bin1);
+
+    final bin2Pos = Vector2(size.x - 100, y);
+    final bin2 = Bin(
+      imagePath: 'bin/recycle-bin.png',
+      type: WasteType.recyclables,
+      initialPos: bin2Pos,
+    );
+
+    add(bin2);
   }
 }
