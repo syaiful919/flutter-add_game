@@ -1,5 +1,5 @@
 import 'package:flame/game.dart';
-
+import 'package:add_game/games/waste_sorting/menus/win_menu.dart';
 import 'package:add_game/games/waste_sorting/components/bin.dart';
 import 'package:add_game/games/waste_sorting/components/item.dart';
 import 'package:add_game/games/waste_sorting/models/waste_type.dart';
@@ -7,6 +7,8 @@ import 'package:add_game/games/waste_sorting/components/background.dart';
 
 class WasteSortingGame extends FlameGame
     with HasDraggables, HasCollisionDetection {
+  bool isGameOver = false;
+
   @override
   Future<void> onLoad() async {
     await super.onLoad();
@@ -14,6 +16,21 @@ class WasteSortingGame extends FlameGame
     addBackground();
     addItems();
     addBins();
+  }
+
+  @override
+  void update(double dt) {
+    super.update(dt);
+
+    if (!isGameOver) {
+      final items = children.whereType<Item>().toList();
+      if (items.isEmpty) isGameOver = true;
+    }
+
+    if (isGameOver) {
+      final isActive = overlays.isActive(WinMenu.id);
+      if (!isActive) overlays.add(WinMenu.id);
+    }
   }
 
   void addBackground() {
