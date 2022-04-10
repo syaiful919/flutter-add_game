@@ -1,8 +1,11 @@
+import 'package:add_game/games/waste_sorting/components/bin.dart';
 import 'package:add_game/games/waste_sorting/models/waste_type.dart';
+import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/input.dart';
 
-class Item extends SpriteComponent with HasGameRef, Draggable {
+class Item extends SpriteComponent
+    with HasGameRef, Draggable, CollisionCallbacks {
   Item({
     required this.imagePath,
     required this.type,
@@ -24,6 +27,7 @@ class Item extends SpriteComponent with HasGameRef, Draggable {
     priority = 1;
     anchor = Anchor.center;
     position = initialPos;
+    add(RectangleHitbox());
   }
 
   @override
@@ -54,5 +58,22 @@ class Item extends SpriteComponent with HasGameRef, Draggable {
   bool onDragCancel() {
     dragDeltaPosition = null;
     return false;
+  }
+
+  @override
+  void onCollisionStart(
+    Set<Vector2> intersectionPoints,
+    PositionComponent other,
+  ) {
+    super.onCollisionStart(intersectionPoints, other);
+
+    if (other is Bin) {
+      if (other.type == type) {
+        removeFromParent();
+      } else {
+        dragDeltaPosition = null;
+        position = initialPos;
+      }
+    }
   }
 }
