@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:add_game/pages/flame/flame_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -13,7 +14,10 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _openFlame() {
-    //
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const FlamePage()),
+    );
   }
 
   @override
