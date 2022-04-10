@@ -5,7 +5,7 @@ import 'package:add_game/games/waste_sorting/components/item.dart';
 import 'package:add_game/games/waste_sorting/models/waste_type.dart';
 import 'package:add_game/games/waste_sorting/components/background.dart';
 
-class WasteSortingGame extends FlameGame {
+class WasteSortingGame extends FlameGame with HasDraggables {
   @override
   Future<void> onLoad() async {
     await super.onLoad();
